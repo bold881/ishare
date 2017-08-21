@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -19,7 +21,12 @@
 		<div id="post_edit" class="collapse">
 			<div class="form-group">
 				<label for="post_edit">Everything You Like:</label>
-				<textarea class="form-control" rows="5" id="post_edit"></textarea>
+				<textarea class="form-control" rows="5" id="post_edit" placeholder="What's on your mind?"></textarea>
+				<div class="top5"></div>
+				
+				<label class="btn btn-success btn-file">
+					Image <span class="glyphicon glyphicon-folder-open"></span><input type="file">
+				</label>
 			</div>
 		</div>
 	</div>
@@ -27,7 +34,7 @@
 	<div class="col-lg-offset-3 col-lg-6">
 		<div class="thumbnail">
 			<a href="https://www.w3schools.com/w3images/lights.jpg" target="_blank">
-				<img src="https://www.w3schools.com/w3images/lights.jpg" alt="Lights" style="width:100%">
+				<img src="https://www.w3schools.com/w3images/lights.jpg" alt="Lights" >
 				<div class="caption">
 					<p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
 				</div>
@@ -37,7 +44,7 @@
 	<div class="col-lg-offset-3 col-lg-6">
 		<div class="thumbnail">
 			<a href="https://www.w3schools.com/w3images/nature.jpg" target="_blank">
-				<img src="https://www.w3schools.com/w3images/nature.jpg" alt="Nature" style="width:100%">
+				<img src="https://www.w3schools.com/w3images/nature.jpg" alt="Nature">
 				<div class="caption">
 					<p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
 				</div>
@@ -47,7 +54,7 @@
 	<div class="col-lg-offset-3 col-lg-6">
 		<div class="thumbnail">
 			<a href="https://www.w3schools.com/w3images/fjords.jpg" target="_blank">
-				<img src="https://www.w3schools.com/w3images/fjords.jpg" alt="Fjords" style="width:100%">
+				<img src="https://www.w3schools.com/w3images/fjords.jpg" alt="Fjords" >
 				<div class="caption">
 					<p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
 				</div>
@@ -56,5 +63,6 @@
 	</div>
 	
 </div>
+
 </body>
 </html>
