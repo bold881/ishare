@@ -23,10 +23,18 @@
 				<label for="post_edit">Everything You Like:</label>
 				<textarea class="form-control" rows="5" id="post_edit" placeholder="What's on your mind?"></textarea>
 				<div class="top5"></div>
-				
-				<label class="btn btn-success btn-file">
-					Image <span class="glyphicon glyphicon-folder-open"></span><input type="file">
-				</label>
+				<div class="col-lg-9">
+					<img id="postimg" src="#" alt="" class="img-thumbnail">
+				</div>
+
+				<div class="row col-lg-9">
+					<form method="POST" enctype="multipart/form-data" action="/fileup">
+						<label class="btn btn-success btn-file">
+						Image <span class="glyphicon glyphicon-folder-open"></span><input id="imgInp" type="file" name="file">
+						</label>
+						<button type="submit" class="btn btn-primary">Post</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -63,6 +71,8 @@
 	</div>
 	
 </div>
+
+<script src="/js/index.common.js"></script>
 
 </body>
 </html>

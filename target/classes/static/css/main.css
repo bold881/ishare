@@ -3,5 +3,16 @@ img {
 }
 
 .top5 {
-	margin-top:5px;
+	margin-top: 5px;
+}
+
+.btn-file input[type=file] {
+	display: none;
+}
+
+img#postimg {
+	width: 0px;
+	height: 0px;
+	margin-bottom: 5px;
+	visibility: hidden;
 }
