@@ -5,8 +5,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import storage.FileSystemStorageService;
 import storage.StorageProperties;
@@ -38,5 +40,15 @@ public class SpringBootShiroApplication {
 	@Bean
 	public StorageService storageService(StorageProperties storageProperties) {
 		return new FileSystemStorageService(storageProperties);
+	}
+	
+	@Bean
+	public FilterRegistrationBean filterRegistrationBean() {
+	    FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+	    CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+	    characterEncodingFilter.setForceEncoding(true);
+	    characterEncodingFilter.setEncoding("UTF-8");
+	    registrationBean.setFilter(characterEncodingFilter);
+	    return registrationBean;
 	}
 }

@@ -21,6 +21,7 @@ public class PostTextServiceImpl implements PostTextService {
 	public boolean save(PostText postText) {
 		
 		if(postText != null) {
+			System.out.println(postText.getContent());
 			if(postTextDao.save(postText) != null) {
 				return true;
 			}

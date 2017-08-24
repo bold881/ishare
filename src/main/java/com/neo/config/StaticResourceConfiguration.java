@@ -22,7 +22,6 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/postimg/**")
-			//.addResourceLocations("/" + this.rootLocation + "/");
-			.addResourceLocations("file:/postimg/");
+			.addResourceLocations("file:" + this.rootLocation + "/");
 	}
 }
