@@ -21,44 +21,37 @@
 		<div id="post_edit" class="collapse">
 			<div class="form-group">
 				<label for="post_edit">Everything You Like:</label>
-				<textarea class="form-control" rows="5" id="post_edit" placeholder="What's on your mind?"></textarea>
-				<div class="top5"></div>
-				<div class="col-lg-9">
-					<img id="postimg" src="#" alt="" class="img-thumbnail">
-				</div>
-
-				<div class="row col-lg-9">
-					<form method="POST" enctype="multipart/form-data" action="/fileup">
-						<label class="btn btn-success btn-file">
-						Image <span class="glyphicon glyphicon-folder-open"></span><input id="imgInp" type="file" name="file">
-						</label>
-						<button type="submit" class="btn btn-primary">Post</button>
-					</form>
-				</div>
+				<form method="POST" enctype="multipart/form-data" action="/fileup">
+					<textarea class="form-control" rows="5" id="post_edit" placeholder="What's on your mind?" name="text"></textarea>
+					<div class="top5"></div>
+					<div class="col-lg-9">
+						<img id="postimg" src="#" alt="" class="img-thumbnail">
+					</div>
+					<label class="btn btn-success btn-file">
+					Image <span class="glyphicon glyphicon-folder-open"></span><input id="imgInp" type="file" name="file">
+					</label>
+					<button type="submit" class="btn btn-primary">Post</button>
+				</form>
 			</div>
 		</div>
 	</div>
 	
-	<div class="col-lg-offset-3 col-lg-6">
-		<div class="thumbnail">
-			<a href="https://www.w3schools.com/w3images/lights.jpg" target="_blank">
-				<img src="https://www.w3schools.com/w3images/lights.jpg" alt="Lights" >
-				<div class="caption">
-					<p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
+		
+		<div th:each="postText : ${postTexts}">
+				<div class="col-lg-offset-3 col-lg-6">
+					<div class="thumbnail">
+						<a th:href="'/postimg/' + ${postText.postImgs[0].hashedFilename}" target="_blank">
+							<img th:src="'/postimg/' + ${postText.postImgs[0].hashedFilename}" alt="Lights" >
+							<div class="caption">
+								<p th:text="${postText.content}"></p>
+							</div>
+						</a>
+					</div>
 				</div>
-			</a>
 		</div>
-	</div>
-	<div class="col-lg-offset-3 col-lg-6">
-		<div class="thumbnail">
-			<a href="https://www.w3schools.com/w3images/nature.jpg" target="_blank">
-				<img src="https://www.w3schools.com/w3images/nature.jpg" alt="Nature">
-				<div class="caption">
-					<p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>
-				</div>
-			</a>
-		</div>
-	</div>
+
+	
+	
 	<div class="col-lg-offset-3 col-lg-6">
 		<div class="thumbnail">
 			<a href="https://www.w3schools.com/w3images/fjords.jpg" target="_blank">

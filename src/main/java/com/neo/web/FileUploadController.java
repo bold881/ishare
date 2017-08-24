@@ -1,14 +1,19 @@
 package com.neo.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.stream.Collectors;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.neo.entity.PostImg;
+import com.neo.entity.PostText;
+import com.neo.entity.UserInfo;
+import com.neo.sevice.PostImgService;
+import com.neo.sevice.PostTextService;
 import storage.StorageFileNotFoundException;
 import storage.StorageService;
 
@@ -26,6 +36,12 @@ import storage.StorageService;
 public class FileUploadController {
 	
 	private final StorageService storageService;
+	
+	@Autowired
+	private PostTextService postTextService;
+	
+	@Autowired
+	private PostImgService postImgService;
 	
 	@Autowired
 	public FileUploadController(StorageService storageService) {
@@ -52,11 +68,45 @@ public class FileUploadController {
 	
 	
 	@PostMapping("/fileup")
-	public String handleFileUpload(@RequestParam("file") MultipartFile file,
+	public String handleFileUpload(
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("text") String text,
 			RedirectAttributes redirectAttributes) {
-		System.out.println(storageService.storeReturnFileName(file));
-		redirectAttributes.addFlashAttribute("message",
-				"You successfully uploaded " + file.getOriginalFilename() + "!");
+		String fileName = storageService.storeReturnFileName(file);
+		if(!(fileName == null && text == null)) {
+			PostImg postImg = new PostImg();
+			postImg.setHashedFilename(fileName);
+			postImg.setOriginFilename(StringUtils.cleanPath(file.getOriginalFilename()));
+			postImg.setFileExt(StringUtils.getFilenameExtension(fileName));
+			postImg = postImgService.save(postImg);
+			
+			if(postImg != null) {
+				// text
+				PostText postText = new PostText();
+				postText.setContent(text);
+				
+				// post img
+				ArrayList<PostImg> imgList = new ArrayList<PostImg>();
+				imgList.add(postImg);
+				postText.setPostImgs(imgList);
+				
+				// current user
+				Subject currentUser = SecurityUtils.getSubject();
+				UserInfo userInfo = (UserInfo) currentUser.getPrincipal();
+				if(userInfo != null) {
+					postText.setUserInfo(userInfo);
+				}
+				
+				// date
+				postText.setDate(new Date());
+				
+				postTextService.save(postText);
+			}
+			
+		}
+		
+//		redirectAttributes.addFlashAttribute("message",
+//				"You successfully uploaded " + file.getOriginalFilename() + "!");
 		
 		return "redirect:/";
 	}

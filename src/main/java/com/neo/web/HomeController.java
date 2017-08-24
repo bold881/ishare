@@ -1,8 +1,10 @@
 package com.neo.web;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.neo.entity.PostText;
 import com.neo.entity.SysRole;
 import com.neo.entity.UserInfo;
+import com.neo.sevice.PostTextService;
 import com.neo.sevice.SysRoleService;
 import com.neo.sevice.UserInfoService;
 
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -31,9 +36,20 @@ public class HomeController {
 	@Autowired
 	private UserInfoService userInfoService;
 	
+	@Autowired
+	private PostTextService postTextService;
+	
 	
     @RequestMapping({"/","/index"})
-    public String index(){
+    public String index(Model model){
+    	
+		Subject currentUser = SecurityUtils.getSubject();
+		UserInfo userInfo = (UserInfo) currentUser.getPrincipal();
+    	List<PostText> postTexts = postTextService.getByUserInfo(userInfo);
+    	
+    	model.addAttribute("postTexts", postTexts);
+    	
+    	
         return"/index";
     }
 
