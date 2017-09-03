@@ -6,6 +6,9 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.neo.dao.PostTextRepository;
 import com.neo.entity.PostText;
 import com.neo.entity.SysRole;
 import com.neo.entity.UserInfo;
@@ -41,17 +43,17 @@ public class HomeController {
 	@Autowired
 	private PostTextService postTextService;
 	
-	@Autowired
-	private PostTextRepository postTextR;
-	
 	
     @RequestMapping({"/","/index"})
     public String index(Model model){
     	
 		Subject currentUser = SecurityUtils.getSubject();
 		UserInfo userInfo = (UserInfo) currentUser.getPrincipal();
-		//List<PostText> postTexts = postTextService.getByUserInfo(userInfo);
-		List<PostText> postTexts = postTextR.getPostTexts(1, userInfo);
+		Pageable pageable = new PageRequest(10,  3, Sort.Direction.DESC, "textid");
+		List<PostText> postTexts = postTextService.getByUserInfo(
+				userInfo, 
+				pageable);
+		
     	Collections.reverse(postTexts);
     	
     	model.addAttribute("postTexts", postTexts);

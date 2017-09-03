@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.neo.dao.PostTextDao;
@@ -32,6 +33,11 @@ public class PostTextServiceImpl implements PostTextService {
 	@Override
 	public List<PostText> getByUserInfo(UserInfo userInfo) {
 		return postTextDao.getByUserInfo(userInfo);
+	}
+
+	@Override
+	public List<PostText> getByUserInfo(UserInfo userInfo, Pageable pageable) {
+		return postTextDao.getByUserInfo(userInfo, pageable);
 	}
 
 }

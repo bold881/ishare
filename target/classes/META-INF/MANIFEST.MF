@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: spring-boot-shiro
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Administrator
+Built-By: dff88
 Implementation-Vendor-Id: com.neo
-Build-Jdk: 1.8.0_144
+Build-Jdk: 1.8.0_141
 Implementation-URL: http://projects.spring.io/spring-boot/spring-boot-
  shiro/
 Created-By: Maven Integration for Eclipse
