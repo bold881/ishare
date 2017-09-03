@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.neo.dao.PostTextRepository;
 import com.neo.entity.PostText;
 import com.neo.entity.SysRole;
 import com.neo.entity.UserInfo;
@@ -40,13 +41,17 @@ public class HomeController {
 	@Autowired
 	private PostTextService postTextService;
 	
+	@Autowired
+	private PostTextRepository postTextR;
+	
 	
     @RequestMapping({"/","/index"})
     public String index(Model model){
     	
 		Subject currentUser = SecurityUtils.getSubject();
 		UserInfo userInfo = (UserInfo) currentUser.getPrincipal();
-		List<PostText> postTexts = postTextService.getByUserInfo(userInfo);
+		//List<PostText> postTexts = postTextService.getByUserInfo(userInfo);
+		List<PostText> postTexts = postTextR.getPostTexts(1, userInfo);
     	Collections.reverse(postTexts);
     	
     	model.addAttribute("postTexts", postTexts);

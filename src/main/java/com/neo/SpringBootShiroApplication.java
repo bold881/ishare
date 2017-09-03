@@ -1,5 +1,7 @@
 package com.neo;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +28,11 @@ public class SpringBootShiroApplication {
 	public HibernateJpaSessionFactoryBean sessionFactoryBean() {
 		return new HibernateJpaSessionFactoryBean();
 	}
+	
+//	@Bean
+//	public SessionFactory getSessionFactory(HibernateEntityManagerFactory hemf) {
+//		return hemf.getSessionFactory();
+//	}
 	
 	@Autowired
 	@Bean

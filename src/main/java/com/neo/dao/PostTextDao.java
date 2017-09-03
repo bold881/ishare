@@ -11,4 +11,6 @@ public interface PostTextDao extends CrudRepository<PostText, Long> {
 	
 	public List<PostText> getByUserInfo(UserInfo userInfo);
 	
+	
+	
 }
