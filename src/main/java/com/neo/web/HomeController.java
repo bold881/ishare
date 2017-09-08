@@ -49,7 +49,8 @@ public class HomeController {
     	
 		Subject currentUser = SecurityUtils.getSubject();
 		UserInfo userInfo = (UserInfo) currentUser.getPrincipal();
-		Pageable pageable = new PageRequest(10,  3, Sort.Direction.DESC, "textid");
+		Pageable pageable = new PageRequest(0,  3, Sort.Direction.DESC, "textid");
+		
 		List<PostText> postTexts = postTextService.getByUserInfo(
 				userInfo, 
 				pageable);
