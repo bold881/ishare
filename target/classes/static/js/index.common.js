@@ -33,7 +33,7 @@ function getPostText(index, pageSize) {
 		cache: false,
 		timeout: 60000,
 		success: function (retData) {
-			console.log(retData);
+			//console.log(retData);
 			var lstPostText = retData;
 			for (var pt in lstPostText) {
 				var content = '<div> \
