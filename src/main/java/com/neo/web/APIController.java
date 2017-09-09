@@ -1,7 +1,6 @@
 package com.neo.web;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -42,7 +41,7 @@ public class APIController {
 		List<PostText> postTexts = postTextService.getByUserInfo(
 				userInfo, 
 				pageable);
-		Collections.reverse(postTexts);
+		//Collections.reverse(postTexts);
 		
 		List<AjaxResponsePostText> lstPostTexts = new ArrayList<AjaxResponsePostText>();
 		for(PostText postText : postTexts) {

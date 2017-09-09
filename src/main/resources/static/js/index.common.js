@@ -42,7 +42,7 @@ function getPostText(index, pageSize) {
 												<a href="/postimg/' + lstPostText[pt].postImages[0] + '" target="_blank">\
 													<img src="/postimg/' + lstPostText[pt].postImages[0] + '" alt="' + lstPostText[pt].content + '" >\
 													<div class="caption">\
-														<p>'+ lstPostText[pt].content + '---' + lstPostText[pt].date + '</p></div></a></div></div></div>';
+														<p>'+ lstPostText[pt].content + '---' + new Date(lstPostText[pt].date).toLocaleString() + '</p></div></a></div></div></div>';
 				$('#div-contents').append(content);
 			}
 		},

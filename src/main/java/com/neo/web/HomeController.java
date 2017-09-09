@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +54,7 @@ public class HomeController {
 				userInfo, 
 				pageable);
 		
-    	Collections.reverse(postTexts);
+    	//Collections.reverse(postTexts);
     	
     	model.addAttribute("postTexts", postTexts);
     	
