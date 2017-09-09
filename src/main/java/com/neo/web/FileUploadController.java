@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.neo.entity.PostImg;
 import com.neo.entity.PostText;
 import com.neo.entity.UserInfo;
+import com.neo.sevice.ImageProcessor;
 import com.neo.sevice.PostImgService;
 import com.neo.sevice.PostTextService;
 import storage.StorageFileNotFoundException;
@@ -42,6 +43,9 @@ public class FileUploadController {
 	
 	@Autowired
 	private PostImgService postImgService;
+	
+	@Autowired
+	private ImageProcessor imageProcessService;
 	
 	@Autowired
 	public FileUploadController(StorageService storageService) {
@@ -73,9 +77,12 @@ public class FileUploadController {
 			@RequestParam("text") String text,
 			RedirectAttributes redirectAttributes) {
 		String fileName = storageService.storeReturnFileName(file);
+		String cpFileName = imageProcessService.ImageCompress(fileName);
+		
 		if(!(fileName == null && text == null)) {
 			PostImg postImg = new PostImg();
 			postImg.setHashedFilename(fileName);
+			postImg.setCpFileName(cpFileName);
 			postImg.setOriginFilename(StringUtils.cleanPath(file.getOriginalFilename()));
 			postImg.setFileExt(StringUtils.getFilenameExtension(fileName));
 			postImg = postImgService.save(postImg);

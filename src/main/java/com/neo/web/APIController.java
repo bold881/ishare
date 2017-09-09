@@ -49,17 +49,20 @@ public class APIController {
 			response.setContent(postText.getContent());
 			response.setDate(postText.getDate());
 			
+			// origin image
 			List<String> lstImgs = new ArrayList<String>();
+			// compressed image
+			List<String> lstCpImgs = new ArrayList<String>();
 			for(PostImg postImg : postText.getPostImgs()) {
 				lstImgs.add(postImg.getHashedFilename());
+				lstCpImgs.add(postImg.getCpFileName());
 			}
 			response.setPostImages(lstImgs);
+			response.setCpPostImages(lstCpImgs);
+			
 			lstPostTexts.add(response);
 		}
-		
-		
-//		Gson gson = new Gson();
-//		String ret = gson.toJson(lstPostTexts);
+	
 		return lstPostTexts;
 	}
 }

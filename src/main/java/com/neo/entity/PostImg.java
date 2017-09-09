@@ -17,7 +17,17 @@ public class PostImg {
 	@Column(unique=true)
 	private String hashedFilename;
 	
+	private String cpFileName;
+	
 	private String fileExt;
+
+	public String getCpFileName() {
+		return cpFileName;
+	}
+
+	public void setCpFileName(String cpFileName) {
+		this.cpFileName = cpFileName;
+	}
 
 	public Integer getImgid() {
 		return imgid;

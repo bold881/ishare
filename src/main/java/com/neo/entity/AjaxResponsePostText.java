@@ -10,6 +10,16 @@ public class AjaxResponsePostText {
 	private Date date;
 	
 	private List<String> postImages;
+	
+	private List<String> cpPostImages;
+
+	public List<String> getCpPostImages() {
+		return cpPostImages;
+	}
+
+	public void setCpPostImages(List<String> cpPostImages) {
+		this.cpPostImages = cpPostImages;
+	}
 
 	public String getContent() {
 		return content;
