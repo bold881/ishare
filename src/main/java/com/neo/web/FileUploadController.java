@@ -77,7 +77,8 @@ public class FileUploadController {
 			@RequestParam("text") String text,
 			RedirectAttributes redirectAttributes) {
 		String fileName = storageService.storeReturnFileName(file);
-		String cpFileName = imageProcessService.ImageCompress(fileName);
+		//String cpFileName = imageProcessService.ImageCompress(fileName);
+		String cpFileName = imageProcessService.ImageScale(fileName);
 		
 		if(!(fileName == null && text == null)) {
 			PostImg postImg = new PostImg();

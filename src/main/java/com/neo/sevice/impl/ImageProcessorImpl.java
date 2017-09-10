@@ -1,5 +1,6 @@
 package com.neo.sevice.impl;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,6 +30,8 @@ public class ImageProcessorImpl implements ImageProcessor {
 	private final Path rootLocation;
 	
 	private final String COMPRESSED_SUFFIX = "_sm";
+	
+	private final int SET_WIDTH = 700;
 	
 	@Autowired
 	public ImageProcessorImpl(StorageProperties storageProperties) {
@@ -66,6 +69,36 @@ public class ImageProcessorImpl implements ImageProcessor {
 		}
 		
 		return compressedImageName;
+	}
+
+	@Override
+	public String ImageScale(String fileName) {
+		
+		File input = new File(this.rootLocation.toString(), fileName);
+		
+		String ext = StringUtils.getFilenameExtension(fileName);
+		String name = StringUtils.stripFilenameExtension(fileName);
+		String compressedImageName = name+COMPRESSED_SUFFIX+"."+ext;
+		File compressedImageFile = new File(this.rootLocation.toString(), 
+				compressedImageName);
+		
+		try {
+	        BufferedImage prevImage = ImageIO.read(input);
+	        double width = prevImage.getWidth();
+	        double height = prevImage.getHeight();
+	        double percent = SET_WIDTH/width;
+	        int newWidth = (int)(width * percent);
+	        int newHeight = (int)(height * percent);
+	        BufferedImage image = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_BGR);
+	        Graphics graphics = image.createGraphics();
+	        graphics.drawImage(prevImage, 0, 0, newWidth, newHeight, (int)width, (int)height, 0, 0, null);
+	        
+			ImageIO.write(image, ext, compressedImageFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    
+        return compressedImageName;
 	}
 
 }
