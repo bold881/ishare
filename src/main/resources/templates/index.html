@@ -40,8 +40,8 @@
 		<div th:each="postText : ${postTexts}">
 				<div class="col-lg-offset-3 col-lg-6">
 					<div class="thumbnail">
-						<a th:href="'/postimg/' + ${postText.postImgs[0].cpFileName}" target="_blank">
-							<img th:src="'/postimg/' + ${postText.postImgs[0].hashedFilename}" th:alt="${postText.content}" >
+						<a th:href="'/postimg/' + ${postText.postImgs[0].hashedFilename}" target="_blank">
+							<img th:src="'/postimg/' + ${postText.postImgs[0].cpFileName}" th:alt="${postText.content}" >
 							<div class="caption">
 								<p th:text="${postText.content} + '---' + ${postText.date}"></p>
 							</div>
