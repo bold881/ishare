@@ -36,13 +36,25 @@ function getPostText(index, pageSize) {
 			//console.log(retData);
 			var lstPostText = retData;
 			for (var pt in lstPostText) {
-				var content = '<div> \
-									<div class="col-lg-offset-3 col-lg-6">\
-											<div class="thumbnail">\
-												<a href="/postimg/' + lstPostText[pt].postImages[0] + '" target="_blank">\
-													<img src="/postimg/' + lstPostText[pt].cpPostImages[0] + '" alt="' + lstPostText[pt].content + '" >\
-													<div class="caption">\
-														<p>'+ lstPostText[pt].content + '---' + new Date(lstPostText[pt].date).toLocaleString() + '</p></div></a></div></div></div>';
+				var content;
+				if(lstPostText[pt].cpPostImages[0] === null) {
+					content = '<div> \
+						<div class="col-lg-offset-3 col-lg-6">\
+								<div class="thumbnail">\
+									<a href="/postimg/' + lstPostText[pt].postImages[0] + '" target="_blank">\
+										<img src="/postimg/' + lstPostText[pt].postImages[0] + '" alt="' + lstPostText[pt].content + '" >\
+										<div class="caption">\
+											<p>'+ lstPostText[pt].content + '---' + new Date(lstPostText[pt].date).toLocaleString() + '</p></div></a></div></div></div>';	
+				} else {
+					content = '<div> \
+						<div class="col-lg-offset-3 col-lg-6">\
+								<div class="thumbnail">\
+									<a href="/postimg/' + lstPostText[pt].postImages[0] + '" target="_blank">\
+										<img src="/postimg/' + lstPostText[pt].cpPostImages[0] + '" alt="' + lstPostText[pt].content + '" >\
+										<div class="caption">\
+											<p>'+ lstPostText[pt].content + '---' + new Date(lstPostText[pt].date).toLocaleString() + '</p></div></a></div></div></div>';					
+				}
+
 				$('#div-contents').append(content);
 			}
 		},
