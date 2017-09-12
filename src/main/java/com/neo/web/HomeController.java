@@ -48,6 +48,9 @@ public class HomeController {
     	
 		Subject currentUser = SecurityUtils.getSubject();
 		UserInfo userInfo = (UserInfo) currentUser.getPrincipal();
+		if(userInfo == null) {
+			return "redirect:/logout";
+		}
 		Pageable pageable = new PageRequest(0,  3, Sort.Direction.DESC, "textid");
 		
 		List<PostText> postTexts = postTextService.getByUserInfo(

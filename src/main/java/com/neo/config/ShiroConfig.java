@@ -1,9 +1,11 @@
 package com.neo.config;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -68,7 +70,14 @@ public class ShiroConfig {
 	public SecurityManager securityManager(){
 		DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
 		securityManager.setRealm(myShiroRealm());
+		securityManager.setRememberMeManager(rememberMeManager());
 		return securityManager;
+	}
+	
+	@Bean
+	public RememberMeManager rememberMeManager() {
+		RememberMeManager rmm = new CookieRememberMeManager();
+		return rmm;
 	}
 
 	/**
