@@ -1,6 +1,8 @@
 package com.neo.config;
 
+import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -105,5 +107,10 @@ public class ShiroConfig {
 		r.setExceptionAttribute("ex");     // Default is "exception"
 		//r.setWarnLogCategory("example.MvcLogger");     // No default
 		return r;
+	}
+	
+	@Bean
+	public PasswordService passwordService() {
+		return new DefaultPasswordService();
 	}
 }
