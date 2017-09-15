@@ -22,32 +22,32 @@ public class ShiroConfig {
 		System.out.println("ShiroConfiguration.shirFilter()");
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		//拦截器.
+		//拦截�
 		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
 		// 配置不会被拦截的链接 顺序判断
 		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/postimg/**", "anon");
 		filterChainDefinitionMap.put("/register", "anon");
 		filterChainDefinitionMap.put("/adminreg", "anon");
-		//配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
+		//配置退�过滤�其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
-		//<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-		//<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+		//<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下�-->:这是一个坑呢，一不小心代码就不好使了;
+		//<!-- authc:所有url都必须认证通过才可以访� anon:所有url都都可以匿名访问-->
 		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilterFactoryBean.setLoginUrl("/login");
-		// 登录成功后要跳转的链接
+		// 登录成功后要跳转的链�
 		shiroFilterFactoryBean.setSuccessUrl("/index");
 
-		//未授权界面;
+		//未授权界�
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
 
 	/**
-	 * 凭证匹配器
-	 * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
-	 * ）
+	 * 凭证匹配�
+	 * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理�
+	 * �
 	 * @return
 	 */
 	@Bean
@@ -76,7 +76,7 @@ public class ShiroConfig {
 
 	/**
 	 *  开启shiro aop注解支持.
-	 *  使用代理方式;所以需要开启代码支持;
+	 *  使用代理方式;所以需要开启代码支�
 	 * @param securityManager
 	 * @return
 	 */
@@ -92,7 +92,7 @@ public class ShiroConfig {
 	createSimpleMappingExceptionResolver() {
 		SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
 		Properties mappings = new Properties();
-		mappings.setProperty("DatabaseException", "databaseError");//数据库异常处理
+		mappings.setProperty("DatabaseException", "databaseError");//数据库异常处�
 		mappings.setProperty("UnauthorizedException","403");
 		r.setExceptionMappings(mappings);  // None by default
 		r.setDefaultErrorView("error");    // No default
