@@ -1,14 +1,12 @@
 package com.neo.config;
 
-import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.authc.credential.PasswordService;
-import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
@@ -75,12 +73,6 @@ public class ShiroConfig {
 		securityManager.setRememberMeManager(rememberMeManager());
 		return securityManager;
 	}
-	
-	@Bean
-	public RememberMeManager rememberMeManager() {
-		RememberMeManager rmm = new CookieRememberMeManager();
-		return rmm;
-	}
 
 	/**
 	 *  开启shiro aop注解支持.
@@ -110,7 +102,17 @@ public class ShiroConfig {
 	}
 	
 	@Bean
-	public PasswordService passwordService() {
-		return new DefaultPasswordService();
+	public SimpleCookie rememberMeCookie() {
+		SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+		simpleCookie.setMaxAge(259200);
+		return simpleCookie;
 	}
+	
+	@Bean 
+	public CookieRememberMeManager rememberMeManager() {
+		CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+		cookieRememberMeManager.setCookie(rememberMeCookie());
+		return cookieRememberMeManager;
+	}
+	
 }
