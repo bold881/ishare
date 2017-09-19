@@ -91,7 +91,8 @@ public class ImageProcessorImpl implements ImageProcessor {
 	        int newHeight = (int)(height * percent);
 	        BufferedImage image = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_BGR);
 	        Graphics graphics = image.createGraphics();
-	        graphics.drawImage(prevImage, 0, 0, newWidth, newHeight, (int)width, (int)height, 0, 0, null);
+	        graphics.drawImage(prevImage, 0, 0, newWidth, newHeight, 0, 0, (int)width, (int)height, null);
+	       
 	        
 			ImageIO.write(image, ext, compressedImageFile);
 		} catch (IOException e) {
