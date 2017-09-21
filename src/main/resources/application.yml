@@ -32,3 +32,6 @@ spring:
        cache: false
        mode: LEGACYHTML5 
        encoding: UTF-8
+
+server:
+  port: 80
