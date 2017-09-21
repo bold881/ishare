@@ -27,7 +27,10 @@ public class WeixinController {
 			@RequestParam("timestamp") String timeStamp, 
 			@RequestParam("nonce") String nonce,
 			@RequestParam("echostr") String echoStr) {
-		System.out.println(signature+timeStamp+nonce+echoStr);
+		System.out.println("signature:" +signature);
+		System.out.println("timeStamp:"+timeStamp);
+		System.out.println("nonce:"+nonce);
+		System.out.println("echoStr:"+echoStr);
 		try {
 			return wxBizMsgCrypt.verifyUrl(signature, timeStamp, nonce, echoStr);
 		} catch (AesException e) {
