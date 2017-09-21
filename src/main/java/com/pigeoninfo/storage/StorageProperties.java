@@ -1,4 +1,4 @@
-package storage;
+package com.pigeoninfo.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

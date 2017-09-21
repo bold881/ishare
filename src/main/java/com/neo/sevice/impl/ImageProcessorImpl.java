@@ -21,8 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.neo.sevice.ImageProcessor;
-
-import storage.StorageProperties;
+import com.pigeoninfo.storage.StorageProperties;
 
 @Service
 public class ImageProcessorImpl implements ImageProcessor {

@@ -1,4 +1,4 @@
-package storage;
+package com.pigeoninfo.storage;
 
 public class StorageFileNotFoundException extends StorageException {
 

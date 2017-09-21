@@ -30,8 +30,8 @@ import com.neo.entity.UserInfo;
 import com.neo.sevice.ImageProcessor;
 import com.neo.sevice.PostImgService;
 import com.neo.sevice.PostTextService;
-import storage.StorageFileNotFoundException;
-import storage.StorageService;
+import com.pigeoninfo.storage.StorageFileNotFoundException;
+import com.pigeoninfo.storage.StorageService;
 
 @Controller
 public class FileUploadController {

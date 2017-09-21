@@ -1,4 +1,4 @@
-package storage;
+package com.pigeoninfo.storage;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

@@ -1,4 +1,4 @@
-package storage;
+package com.pigeoninfo.storage;
 
 import java.nio.file.Path;
 import java.util.stream.Stream;
