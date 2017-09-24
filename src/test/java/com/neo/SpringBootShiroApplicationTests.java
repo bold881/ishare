@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.neo.entity.UserInfo;
-import com.neo.sevice.PostTextService;
+import com.pigeoninfo.entity.UserInfo;
+import com.pigeoninfo.sevice.PostTextService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

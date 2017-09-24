@@ -44,6 +44,7 @@ public class WXBizMsgCrypt {
 	byte[] aesKey;
 	String token;
 	String appId;
+	
 
 	/**
 	 * 构造函数
