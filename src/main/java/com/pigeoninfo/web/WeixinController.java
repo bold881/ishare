@@ -59,7 +59,7 @@ public class WeixinController {
 			System.out.print("decrypt msg: " + decryptMsg);
 			
 		} catch (AesException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		return "success";
