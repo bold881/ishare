@@ -44,8 +44,20 @@ public class WeixinController {
 	
 	@PostMapping("/echostr")
 	@ResponseBody
-	public String messageRecive(@RequestBody String requestBody) {
+	public String messageRecive(@RequestParam("signature") String msgSignature,
+			@RequestParam("timestamp") String timeStamp, 
+			@RequestParam("nonce") String nonce,
+			@RequestBody String requestBody) {
 		System.out.println(requestBody);
+		try {
+			String decryptMsg = wxBizMsgCrypt.decryptMsg(
+					msgSignature, timeStamp, nonce, requestBody);
+			System.out.print("decrypt msg: " + decryptMsg);
+			
+		} catch (AesException e) {
+			e.printStackTrace();
+		}
+		
 		return "success";
 	}
 }
