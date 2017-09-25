@@ -48,19 +48,14 @@ public class WeixinController {
 			@RequestParam("timestamp") String timeStamp, 
 			@RequestParam("nonce") String nonce,
 			@RequestBody String requestBody) {
-
-		System.out.println(requestBody);
-		System.out.println(msgSignature);
-		System.out.println(timeStamp);
-		System.out.println(nonce);
-//		try {
-//			String decryptMsg = wxBizMsgCrypt.decryptMsg(
-//					msgSignature, timeStamp, nonce, requestBody);
-//			System.out.print("decrypt msg: " + decryptMsg);
-//			
-//		} catch (AesException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			String decryptMsg = wxBizMsgCrypt.decryptMsg(
+					msgSignature, timeStamp, nonce, requestBody);
+			System.out.print("decrypt msg: " + decryptMsg);
+			
+		} catch (AesException e) {
+			e.printStackTrace();
+		}
 		
 		return "success";
 	}

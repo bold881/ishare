@@ -60,8 +60,7 @@ class SHA1 {
 	}
 	
 	
-	public static String getSHA1(String token, String timestamp, String nonce) throws AesException
-	  {
+	public static String getSHA1(String token, String timestamp, String nonce) throws AesException {
 		try {
 			String[] array = new String[] { token, timestamp, nonce };
 			StringBuffer sb = new StringBuffer();
