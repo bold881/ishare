@@ -1,4 +1,4 @@
-package com.neo;
+package com.pigeoninfo;
 
 import static org.junit.Assert.*;
 

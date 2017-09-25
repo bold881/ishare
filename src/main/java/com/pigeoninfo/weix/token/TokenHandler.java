@@ -1,5 +1,7 @@
 package com.pigeoninfo.weix.token;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +31,14 @@ public class TokenHandler {
 	
 	private HttpStatus status;
 	
+	public AccessToken getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(AccessToken accessToken) {
+		this.accessToken = accessToken;
+	}
+
 	public HttpStatus getStatus() {
 		return status;
 	}
@@ -46,13 +56,22 @@ public class TokenHandler {
 		headers.add("Accept", "*/*");
 	}
 	
-	@Scheduled(fixedRate=5000)
+	//@Scheduled(fixedRate=7200000)
 	public void refreshAccessToken() {
 		HttpEntity<String> requestEntity = new HttpEntity<String>("", headers);
 	    ResponseEntity<String> responseEntity = 
-	    		restTemplate.exchange("https://www.baidu.com", HttpMethod.GET, requestEntity, String.class);
+	    		restTemplate.exchange(prepareFullTokenUri(), HttpMethod.GET, requestEntity, String.class);
 	    this.setStatus(responseEntity.getStatusCode());
-	    System.out.println(responseEntity.getBody());
+	    if(status == HttpStatus.OK) {
+	    	try {
+				JSONObject jsonObj = new JSONObject(responseEntity.getBody());
+				accessToken.setAccessToken(jsonObj.getString("access_token"));
+				accessToken.setExpiresIn(jsonObj.getInt("expires_in"));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+	    }
+	    
 	}
 
 	private String prepareFullTokenUri() {
@@ -61,6 +80,4 @@ public class TokenHandler {
 		fullUri += "&secret=" + secret;
 		return fullUri;
 	}
-	
-	
 }
