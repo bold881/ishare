@@ -48,10 +48,11 @@ public class WeixinController {
 			@RequestParam("timestamp") String timeStamp, 
 			@RequestParam("nonce") String nonce,
 			@RequestBody String requestBody) {
+
+		System.out.println(requestBody);
 		System.out.println(msgSignature);
 		System.out.println(timeStamp);
 		System.out.println(nonce);
-		System.out.println(requestBody);
 		try {
 			String decryptMsg = wxBizMsgCrypt.decryptMsg(
 					msgSignature, timeStamp, nonce, requestBody);
