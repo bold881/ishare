@@ -109,7 +109,8 @@ class XMLParse {
 			Document document = db.parse(is);
 
 			Element root = document.getDocumentElement();
-			return root.getElementsByTagName("Content").toString();
+			NodeList nodelistContent = root.getElementsByTagName("Content");
+			return nodelistContent.item(0).getTextContent().toString();
 
 		} catch (Exception e) {
 			e.printStackTrace();
