@@ -56,7 +56,7 @@ public class TokenHandler {
 		headers.add("Accept", "*/*");
 	}
 	
-	//@Scheduled(fixedRate=7200000)
+	@Scheduled(fixedRate=7200000)
 	public void refreshAccessToken() {
 		HttpEntity<String> requestEntity = new HttpEntity<String>("", headers);
 	    ResponseEntity<String> responseEntity = 

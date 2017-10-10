@@ -69,4 +69,68 @@ class XMLParse {
 		return String.format(format, encrypt, signature, timestamp, nonce);
 
 	}
+	
+	public static Object[] extractInMsg(String xmltext) throws AesException     {
+		Object[] result = new Object[5];
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			StringReader sr = new StringReader(xmltext);
+			InputSource is = new InputSource(sr);
+			Document document = db.parse(is);
+
+			Element root = document.getDocumentElement();
+			NodeList nodelist1 = root.getElementsByTagName("ToUserName");
+			NodeList nodelist2 = root.getElementsByTagName("FromUserName");
+			NodeList nodelist3 = root.getElementsByTagName("CreateTime");
+			NodeList nodelist4 = root.getElementsByTagName("MsgType");
+			NodeList nodelist5 = root.getElementsByTagName("MsgId");
+		
+			result[0] = nodelist1.item(0).getTextContent();
+			result[1] = nodelist2.item(0).getTextContent();
+			result[2] = nodelist3.item(0).getTextContent();
+			result[3] = nodelist4.item(0).getTextContent();
+			result[4] = nodelist5.item(0).getTextContent();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AesException(AesException.ParseXmlError);
+		}
+	}
+	
+	
+	public static String extractTextInMsgContent(String xmltext) throws AesException     {
+		
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			StringReader sr = new StringReader(xmltext);
+			InputSource is = new InputSource(sr);
+			Document document = db.parse(is);
+
+			Element root = document.getDocumentElement();
+			return root.getElementsByTagName("Content").toString();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AesException(AesException.ParseXmlError);
+		}
+	}
+	
+	
+	public static String generateTxtReply(String toUserName, 
+			String fromUserName, 
+			String createTime, 
+			String msgType,
+			String content) {
+
+		String format = "<xml>\n" 
+				+ "<ToUserName><![CDATA[%1$s]]></ToUserName>\n"
+				+ "<FromUserName><![CDATA[%2$s]]></FromUserName>\n"
+				+ "<CreateTime>%3$s</CreateTime>\n" 
+				+ "<MsgType><![CDATA[%4$s]]></MsgType>\n" 
+				+ "<Content><![CDATA[%5$s]]></Content>\n" 
+				+ "</xml>";
+		return String.format(format, toUserName, fromUserName, createTime, msgType, content);
+	}
 }

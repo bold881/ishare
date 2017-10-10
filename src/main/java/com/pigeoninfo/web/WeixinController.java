@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pigeoninfo.weix.AesException;
+import com.pigeoninfo.weix.Message;
 import com.pigeoninfo.weix.WXBizMsgCrypt;
 
 @Controller
@@ -47,11 +48,19 @@ public class WeixinController {
 	public String messageRecive(@RequestParam("signature") String msgSignature,
 			@RequestParam("timestamp") String timeStamp, 
 			@RequestParam("nonce") String nonce,
-			@RequestBody String requestBody) {
+			@RequestBody String requestBody) throws Exception {
 		try {
 			String decryptMsg = wxBizMsgCrypt.decryptMsg(
 					msgSignature, timeStamp, nonce, requestBody);
 			System.out.print("decrypt msg: " + decryptMsg);
+			
+			Message inMessage = new Message(decryptMsg);
+			if(inMessage != null) {
+				if(inMessage.isTextTypeMessage()) {
+					String txtReply = inMessage.getTextTypeReply();
+					return wxBizMsgCrypt.encryptMsg(txtReply, timeStamp, nonce);
+				}
+			}
 			
 		} catch (AesException e) {
 			e.printStackTrace();
