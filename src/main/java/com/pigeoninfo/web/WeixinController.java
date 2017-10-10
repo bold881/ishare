@@ -58,6 +58,7 @@ public class WeixinController {
 			if(inMessage != null) {
 				if(inMessage.isTextTypeMessage()) {
 					String txtReply = inMessage.getTextTypeReply();
+					System.out.println(txtReply);
 					return wxBizMsgCrypt.encryptMsg(txtReply, timeStamp, nonce);
 				}
 			}
